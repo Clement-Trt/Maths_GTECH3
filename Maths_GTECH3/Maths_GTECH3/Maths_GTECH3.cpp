@@ -4,9 +4,6 @@
 #include <iostream>
 #include <windows.h>
 
-#include <thread>
-#include <chrono>
-
 int main(int argc, char** argv)
 {
     std::cout << "Hello World!\n";
@@ -19,23 +16,25 @@ int main(int argc, char** argv)
         SetConsoleMode(hConsole, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
     }
 
-
+    // "clear" cmd (scroll vers le bas)
     std::cout << "\x1b[2J";
     std::cout << "bob\n";
 
+    // ca   cher curseur
     std::cout << "\x1b[?25l";
 
-    std::cout << "Le curseur est cache pendant 3 secondes...\n";
-    //std::this_thread::sleep_for(std::chrono::seconds(3));
+    std::cout << "Le curseur est cache ...\n";
 
     // Réafficher le curseur
     std::cout << "\x1b[?25h";
     std::cout << "Curseur reactive.\n";
 
-    std::string a;
-    std::cin >> a;
+    // clear (scroll)
+    std::cout << "\x1b[2J";
 
-    std::cout << "\x1b[H\x1b[n";
+   
+    std::cout << "lalalalalal\n nanana ";
+    std::cout << "\x1b[H\x1b[n"; // remonte le cuseur + overwrite
     std::cout << "bob2_ ";
 
     return 0;
