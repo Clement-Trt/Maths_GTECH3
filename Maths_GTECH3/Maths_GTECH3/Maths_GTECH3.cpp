@@ -40,7 +40,8 @@
 //
 //    return 0;
 //}
-#include "Settings.h"
+//#include "Settings.h"
+#include "Screen.h"
 
 int main(int argc, char** argv)
 {
@@ -59,29 +60,12 @@ int main(int argc, char** argv)
 
     // Default size settings
 
-    Settings param;
-
-    param.initWindowSize(argc, argv);
-
-    int width = param.getWidth();
-    int height = param.getHeight();
+    Screen screen;
+    screen.Initialize(argc, argv);
+    screen.ComputeScreen();
+    screen.Display();
 
 
-    std::vector<char> vec;
-
-    for (int i = 0; i < height; i++)
-    {
-        for (int j = 0; j < width; j++)
-        {
-            vec.push_back('.');
-        }
-            vec.push_back('\n');
-    }
-
-    for (int i = 0; i < vec.size(); i++)
-    {
-        std::cout << vec[i];
-    }
 
     return 0;
 }

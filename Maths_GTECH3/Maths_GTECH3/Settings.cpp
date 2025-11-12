@@ -1,6 +1,6 @@
 #include "Settings.h"
 
-void Settings::initWindowSize(int argc, char** argv)
+Params Settings::initWindowSize(int argc, char** argv)
 {
     if (argc > 1)
     {
@@ -13,6 +13,10 @@ void Settings::initWindowSize(int argc, char** argv)
             if (std::string(argv[i]) == "-w")
             {
                 m_width = std::stoi(argv[i + 1]);
+            }
+            if (std::string(argv[i]) == "-r")
+            {
+                m_resolution = std::stoi(argv[i + 1]);
             }
         }
     }

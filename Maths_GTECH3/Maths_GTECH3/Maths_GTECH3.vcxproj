@@ -124,10 +124,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Maths_GTECH3.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="Settings.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Settings.h" />
   </ItemGroup>
