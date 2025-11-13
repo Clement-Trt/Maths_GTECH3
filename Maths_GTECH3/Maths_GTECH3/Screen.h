@@ -21,5 +21,9 @@ public:
 	void ComputeScreen();
 	void Display();
 
+	void CreateRect(int width, int height);
+
+	void debugMesh() { m_mesh.debug(); }
+
 };
 

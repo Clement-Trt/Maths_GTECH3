@@ -20,4 +20,6 @@ Params Settings::initWindowSize(int argc, char** argv)
             }
         }
     }
+    Params p{ m_width, m_height,m_resolution };
+    return p;
 }

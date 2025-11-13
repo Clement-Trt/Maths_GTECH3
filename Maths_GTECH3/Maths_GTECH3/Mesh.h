@@ -18,5 +18,10 @@ public:
 	void debug();
 
 	void setResolution(int resolution) { m_resolution = resolution; }
+
+	std::vector<Vertex>& GetVertices() { return m_vertices; }
+
+	void CreateRect(int width, int height);
+
 };
 

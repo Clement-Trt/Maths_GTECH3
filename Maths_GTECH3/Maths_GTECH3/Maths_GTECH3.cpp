@@ -65,6 +65,8 @@ int main(int argc, char** argv)
     screen.ComputeScreen();
     screen.Display();
 
+    screen.CreateRect(5,2);
+    screen.debugMesh();
 
 
     return 0;
