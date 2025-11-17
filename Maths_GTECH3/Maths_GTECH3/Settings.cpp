@@ -1,6 +1,6 @@
 #include "Settings.h"
 
-Params Settings::initWindowSize(int argc, char** argv)
+Params Settings::ParseArguments(int argc, char** argv)
 {
     if (argc > 1)
     {

@@ -1,14 +1,15 @@
 #pragma once
 #include "Settings.h"
-#include "Mesh.h"
+//#include "Mesh.h"
 #include <vector>
+
+class Mesh;
 
 class Screen
 {
 private:
 
 	Settings m_settings;
-	Mesh m_mesh;
 	std::vector<char> m_display;
 
 public:
@@ -21,9 +22,9 @@ public:
 	void ComputeScreen();
 	void Display();
 
-	void CreateRect(int width, int height);
+	void DisplayMesh(Mesh& mesh);
 
-	void debugMesh() { m_mesh.debug(); }
+
 
 };
 
