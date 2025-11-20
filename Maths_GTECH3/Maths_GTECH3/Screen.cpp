@@ -15,7 +15,7 @@ void Screen::ComputeScreen()
 	{
 		for (int j = 0; j < m_settings.getWidth(); j++)
 		{
-			m_display.push_back('.');
+			m_display.push_back(m_settings.getBackgroundChar());
 		}
 		m_display.push_back('\n');
 	}
@@ -42,7 +42,7 @@ void Screen::DisplayMesh(Mesh& mesh)
 {
     float height = m_settings.getHeight();
     float width = m_settings.getWidth();
-    m_display.assign(height * width, '.');
+    m_display.assign(height * width, m_settings.getBackgroundChar());
 
     int cx = width / 2;
     int cy = height / 2;
