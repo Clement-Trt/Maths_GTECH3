@@ -53,7 +53,7 @@ int main(int argc, char** argv)
 
     Space();
     Mesh rect(32);
-    rect.CreateRect(10, 5);
+    rect.CreateRect(20, 20);
     screen.DisplayMesh(rect);
 
     Space();

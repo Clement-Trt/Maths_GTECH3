@@ -28,7 +28,7 @@ void Mesh::CreateRect(float width, float height)
 
 	for (int i = m_resolution - 1; i >= 0; i--)
 	{
-		for (int j = 0; j < m_resolution; j++)
+		for (int j = 0; j < m_resolution -1; j++)
 		{
 			Vertex v;/*
 			v.x = (float)width * 0.5 * (((2.0 * j / (m_resolution - 1.0)) - 1)) ;

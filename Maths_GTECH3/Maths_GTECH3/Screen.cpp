@@ -50,7 +50,7 @@ void Screen::DisplayMesh(Mesh& mesh)
     for (const auto& v : mesh.GetVertices())
     {
         int col = cx + static_cast<int>(v.x);
-        int row = cy - static_cast<int>(v.y); // -v.y car ligne 0 = haut
+        int row = cy - static_cast<int>(v.y) / 2; // -v.y car ligne 0 = haut
 
         if (col >= 0 && col < width && row >= 0 && row < height)
         {
