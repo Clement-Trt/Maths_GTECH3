@@ -20,7 +20,7 @@ void ClearConsole()
 
 void SetCursorVisible(bool visible)
 {
-    if(visible)
+    if (visible)
     {
         std::cout << "\x1b[?25h"; // Make cursor visible
     }

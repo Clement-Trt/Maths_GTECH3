@@ -4,12 +4,22 @@
 
 class Settings;
 
+enum Axis
+{
+    AXIS_X,
+    AXIS_Y,
+    AXIS_Z
+};
+
+
 struct Vertex
 {
     void Debug() const { std::printf("[x=%5.2f, y=%5.2f, z=%5.2f]\n", x, y, z); }
     float x;
     float y;
     float z;
+
+    void Rotate(float angle, Axis axis);
 };
 
 class Mesh
@@ -21,6 +31,7 @@ class Mesh
     void GenerateHalfCircle(float radius);
     void GenerateRectangle(float width, float height);
     void GenerateSquare(float side);
+    void Rotate(float angle, Axis axis);
     void Debug() const;
 
     private:
