@@ -37,6 +37,11 @@ void Mesh::GenerateSquare(float side)
 	GenerateRectangle(side, side);
 }
 
+void Mesh::GenerateTorus(float majorRadius, float minorRadius)
+{
+	m_vertices.resize(m_resolution * m_resolution * m_resolution);
+}
+
 void Mesh::Debug() const
 {
 	for (Vertex const& vertex : m_vertices)
@@ -63,7 +68,7 @@ void Mesh::_GenerateSector(float radius, float angle)
 
 void Mesh::Rotate(float angle, Axis axis)
 {
-	for (auto vert : m_vertices)
+	for (auto& vert : m_vertices)
 	{
 		vert.Rotate(angle, axis);
 	}
@@ -73,8 +78,7 @@ void Vertex::Rotate(float angle, Axis axis)
 {
 
 	float radAngle = PI * angle / 180.f;
-	//float dist = std::sqrt(x * x + y * y);
-	float newX, newY, newZ;
+	float newX = 0, newY = 0, newZ = 0;
 	float co = cos(radAngle);
 	float si = sin(radAngle);
 	switch (axis)
@@ -83,7 +87,7 @@ void Vertex::Rotate(float angle, Axis axis)
 		newY = y * co - z * si;
 		newZ = y * si + z * co;
 		break;
-	caseY:
+	case AXIS_Y:
 		newX = z * si + x * co;
 		newZ = z * co - x * si;
 		break;

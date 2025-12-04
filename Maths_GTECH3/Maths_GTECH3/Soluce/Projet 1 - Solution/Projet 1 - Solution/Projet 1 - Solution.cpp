@@ -43,13 +43,17 @@ int main(int argc, char** argv)
     std::cout << "Rectangle 10x20:" << std::endl;
     screen.Display(mesh);
     mesh.GenerateSquare(20.f);
+    mesh.Rotate(45, AXIS_Z);
     std::cout << "Square 20x20:" << std::endl;
     screen.Display(mesh);
     mesh.GenerateCircle(15.f);
     std::cout << "Circle radius 15:" << std::endl;
     screen.Display(mesh);
     mesh.GenerateHalfCircle(15.f);
+    mesh.Rotate(90,AXIS_Z);
     std::cout << "Half Circle radius 15:" << std::endl;
     screen.Display(mesh);
+
+
     return 0;
 }
