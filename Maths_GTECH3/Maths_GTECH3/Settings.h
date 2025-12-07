@@ -29,14 +29,14 @@ public:
 
 	Params ParseArguments(int argc, char** argv);
 
-	int getHeight()& { return m_height; }
-	int getWidth()& { return m_width; }
-	int getResolution()& { return m_resolution; }
+	int getHeight() { return m_height; }
+	int getWidth() { return m_width; }
+	int getResolution() { return m_resolution; }
 
-	char getBackgroundChar()& { return m_backGroundChar; }
-	char getMeshProjChar()& { return m_meshProjChar; }
-	int getScreenPosition()& { return m_screenPosition; }
-	int getViewerPosition()& { return m_viewerPosition; }
+	char getBackgroundChar() { return m_backGroundChar; }
+	char getMeshProjChar() { return m_meshProjChar; }
+	int getScreenPosition() { return m_screenPosition; }
+	int getViewerPosition() { return m_viewerPosition; }
 
 };
 

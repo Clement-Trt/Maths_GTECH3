@@ -11,6 +11,7 @@ private:
 
 	Settings m_settings;
 	std::vector<char> m_display;
+	std::vector<float> m_oozBuffer;
 
 public:
 

@@ -48,7 +48,6 @@ int main(int argc, char** argv)
 
     Screen screen;
     screen.Initialize(argc, argv);
-    screen.ComputeScreen();
     screen.Display();
 
     Space();
@@ -59,16 +58,31 @@ int main(int argc, char** argv)
     Space();
     ClearConsole();
     Mesh cric(32);
-    cric.CreateCircle(8);
+    cric.CreateCircle(12);
     screen.DisplayMesh(cric);
 
     Space();
     ClearConsole();
     Mesh halfCirc(32);
-    halfCirc.CreateSemiCircle(8);
+    halfCirc.CreateSemiCircle(9);
     //halfCirc.debug();
     screen.DisplayMesh(halfCirc);
 
+    Space();
+    ClearConsole();
+    Mesh torus(32);
+    torus.CreateTorus(15.f,5.f);
+    screen.DisplayMesh(torus);
+
+
+    while (true)
+    {
+    Space();
+    ClearConsole();
+        torus.Rotate(1, AXIS_X);
+        torus.Rotate(1, AXIS_Z);
+    screen.DisplayMesh(torus);
+    }
 
     return 0;
 }
