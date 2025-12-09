@@ -19,6 +19,10 @@ void InitConsole() // Pas forcement necessaire, depend du compilateur
 void ClearConsole()
 {
     std::cout << "\x1b[2J"; // Remove all characters in console (scroll down)
+}
+
+void SetHomePosition()
+{
     std::cout << "\x1b[H"; // Set cursor pos to "home" position (0,0)
 }
 
@@ -78,7 +82,7 @@ int main(int argc, char** argv)
     while (true)
     {
     Space();
-    ClearConsole();
+    SetHomePosition();
         torus.Rotate(1, AXIS_X);
         torus.Rotate(1, AXIS_Z);
     screen.DisplayMesh(torus);
