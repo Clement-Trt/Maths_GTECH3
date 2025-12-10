@@ -103,7 +103,7 @@ void Mesh::CreateSemiCircle(float radius)
 }
 void Mesh::CreateTorus(float majorRadius, float minorRadius)
 {
-	m_resolution = 128;
+	m_resolution = 128*2;
 	//for (int i = 0; i < m_resolution; i++)
 	//{
 	//	float phi = (2.f * PI * (float)i) / ((float)m_resolution - 1.f);

@@ -8,12 +8,40 @@
 #include "Mesh.h"
 
 
-void InitConsole() // Pas forcement necessaire, depend du compilateur
+void InitConsole(int width, int height) // Pas forcement necessaire, depend du compilateur
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    if (hConsole == INVALID_HANDLE_VALUE)
+        return;
+
     DWORD mode;
     GetConsoleMode(hConsole, &mode);
     SetConsoleMode(hConsole, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+
+    // 1) Taille du buffer
+    COORD bufferSize;
+    bufferSize.X = width;
+    bufferSize.Y = height;
+
+    if (!SetConsoleScreenBufferSize(hConsole, bufferSize))
+    {
+        std::cerr << "Erreur SetConsoleScreenBufferSize\n";
+        return;
+    }
+
+    // 2) Taille de la fenêtre
+    SMALL_RECT windowRect;
+    windowRect.Left = 0;
+    windowRect.Top = 0;
+    windowRect.Right = width - 1;
+    windowRect.Bottom = height - 1;
+
+    if (!SetConsoleWindowInfo(hConsole, TRUE, &windowRect))
+    {
+        std::cerr << "Erreur SetConsoleWindowInfo\n";
+        return;
+    }
 }
 
 void ClearConsole()
@@ -45,7 +73,7 @@ void SetCursorVisible(bool visible)
 
 int main(int argc, char** argv)
 {
-    InitConsole();
+    InitConsole(150,50);
 
     ClearConsole();
     SetCursorVisible(false);
@@ -75,7 +103,8 @@ int main(int argc, char** argv)
     Space();
     ClearConsole();
     Mesh torus(32);
-    torus.CreateTorus(15.f,5.f);
+    torus.CreateTorus(25.f,10.f);
+    //torus.CreateTorus(8.f,2.f);
     screen.DisplayMesh(torus);
 
 
@@ -83,8 +112,9 @@ int main(int argc, char** argv)
     {
     Space();
     SetHomePosition();
-        torus.Rotate(1, AXIS_X);
-        torus.Rotate(1, AXIS_Z);
+        torus.Rotate(5, AXIS_X);
+        torus.Rotate(25, AXIS_Y);
+        torus.Rotate(25, AXIS_Z);
     screen.DisplayMesh(torus);
     }
 

@@ -1,7 +1,7 @@
 #define _USE_MATH_DEFINES
 
-#include "Mesh.h"
 #include <cmath>
+#include "Mesh.h"
 #include "Settings.h"
 
 void Vertex::Rotate(float angle, Axis axis)

@@ -39,7 +39,7 @@ void Screen::Display()
 	//}
 }
 
-
+// QUESTIONS : pourquoi z += m_meshPosition; pareil que z -= m_meshPosition; et surtout pourquoi le centre de roation semble avoir bougé en utilisant la perspective ??
 void Screen::DisplayMesh(Mesh& mesh)
 {
 	int height = m_settings.getHeight();
@@ -47,14 +47,25 @@ void Screen::DisplayMesh(Mesh& mesh)
 	m_display.assign(height * width, m_settings.getBackgroundChar());
 	m_oozBuffer.assign(height * width, -1);
 
+	float m_screenPosition(3.33f);
+	//float m_screenPosition(30.f);
+	float m_meshPosition(5.f);
+	float m_meshPositionY(5.f);
+	float m_meshPositionX(25.f);
+	//float m_meshPosition(35.f);
 
 	int centreX = width / 2;
 	int centreY = height / 2;
 
-	for (const Vertex& v : mesh.GetVertices())
+
+	for (Vertex v : mesh.GetVertices())
 	{
+		v.z -= m_meshPosition;
+		v.x = m_screenPosition * v.x / m_meshPosition + m_meshPositionX;
+		v.y = m_screenPosition * v.y / m_meshPosition + m_meshPositionY;
+
 		int col = centreX + std::round(v.x);
-		int row = centreY - std::round(v.y) / 2; // -v.y car ligne 0 = haut
+		int row = centreY - std::round(v.y) / 2; // -v.y car ligne 0 = haut, /2 car affichage déformé en Y par la console	
 
 		if (col >= 0 && col < width && row >= 0 && row < height)
 		{
@@ -72,45 +83,6 @@ void Screen::DisplayMesh(Mesh& mesh)
 			std::cout << m_display[row * width + col];
 		std::cout << '\n';
 	}
-
-
-	//float meshPositonZ = 5;
-	//float viewPositionZ = 3.33f;
-
-	//int size = width * height;
-
-	//for (Vertex vertex : mesh.GetVertices())
-	//{
-
-	//	float y_prime = (vertex.y * viewPositionZ) / meshPositonZ;
-	//	float x_prime = (vertex.x * viewPositionZ) / meshPositonZ;
-
-	//	y_prime /= 2.0f;
-
-	//	x_prime += centreX;
-	//	y_prime += centreY;
-
-	//	int u = round(x_prime);
-	//	int v = round(y_prime);
-
-	//	int index = width * v + u;
-
-	//	float ooz = 1.f / vertex.z;
-
-	//	if (ooz < m_oozBuffer[index]) continue;
-	//	if (index < 0 || index >= size) continue;
-
-	//	m_display[index] = m_settings.getMeshProjChar();
-	//	m_oozBuffer[index] = ooz;
-	//}
-
-	//for (int i = 0; i < size; ++i)
-	//{
-	//	std::cout << m_display[i];
-
-	//	if ((i + 1) % width == 0)
-	//		std::cout << std::endl;
-	//}
 }
 
 
