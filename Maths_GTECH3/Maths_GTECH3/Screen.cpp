@@ -47,9 +47,10 @@ void Screen::DisplayMesh(Mesh& mesh)
 	m_display.assign(height * width, m_settings.getBackgroundChar());
 	m_oozBuffer.assign(height * width, -1);
 
-	float m_screenPosition(3.33f);
+	//float m_screenPosition(3.33f);
+	float m_screenPosition(100.f);
 	//float m_screenPosition(30.f);
-	float m_meshPosition(5.f);
+	float m_meshPosition(40.f);
 	float m_meshPositionY(5.f);
 	float m_meshPositionX(25.f);
 	//float m_meshPosition(35.f);
@@ -57,12 +58,14 @@ void Screen::DisplayMesh(Mesh& mesh)
 	int centreX = width / 2;
 	int centreY = height / 2;
 
+	m_screenPosition = 100 * m_meshPosition * 2 / (8 * (4 + 0.9));
 
 	for (Vertex v : mesh.GetVertices())
 	{
-		v.z -= m_meshPosition;
-		v.x = m_screenPosition * v.x / m_meshPosition + m_meshPositionX;
-		v.y = m_screenPosition * v.y / m_meshPosition + m_meshPositionY;
+		if (v.z == 0) continue;
+		v.z += m_meshPosition;
+		v.x = m_screenPosition * v.x / v.z /*+ m_meshPositionX*/;
+		v.y = m_screenPosition * v.y / v.z /*+ m_meshPositionY*/;
 
 		int col = centreX + std::round(v.x);
 		int row = centreY - std::round(v.y) / 2; // -v.y car ligne 0 = haut, /2 car affichage déformé en Y par la console	
