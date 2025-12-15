@@ -117,8 +117,16 @@ void Mesh::CreateTorus(float majorRadius, float minorRadius)
 			float y = minorRadius * sin(minorR);
 			float z = -(majorRadius + minorRadius * cos(minorR)) * sin(majorR);
 
-			float dist = std::sqrt(x * x + y * y + z * z);
-			Vec3 normal = { x / dist, y / dist, z / dist };
+			float cx = majorRadius * cos(majorR);
+			float cy = 0.0f;
+			float cz = -majorRadius * sin(majorR);
+
+			float nx = x - cx;
+			float ny = y - cy;
+			float nz = z - cz;
+
+			float len = std::sqrt(nx * nx + ny * ny + nz * nz);
+			Vec3 normal = { nx / len, ny / len, nz / len };
 
 			m_vertices.emplace_back(x, y, z, normal);
 		}
