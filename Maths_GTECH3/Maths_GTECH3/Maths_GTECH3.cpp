@@ -103,7 +103,7 @@ int main(int argc, char** argv)
     Space();
     ClearConsole();
     Mesh torus(256);
-    torus.CreateTorus(4.f,.9f);
+    torus.CreateTorus(4.f,2.f);
     //torus.CreateTorus(8.f,2.f);
     screen.DisplayMesh(torus);
 
@@ -112,9 +112,9 @@ int main(int argc, char** argv)
     {
     Space();
     SetHomePosition();
-        torus.Rotate(5, AXIS_X);
-        torus.Rotate(25, AXIS_Y);
-        torus.Rotate(25, AXIS_Z);
+        //torus.Rotate(5, AXIS_X);
+        torus.Rotate(20, AXIS_Y);
+        torus.Rotate(15, AXIS_Z);
     screen.DisplayMesh(torus);
     }
 

@@ -103,21 +103,8 @@ void Mesh::CreateSemiCircle(float radius)
 }
 void Mesh::CreateTorus(float majorRadius, float minorRadius)
 {
-	m_resolution = 128*2;
-	//for (int i = 0; i < m_resolution; i++)
-	//{
-	//	float phi = (2.f * PI * (float)i) / ((float)m_resolution - 1.f);
-	//	for (int j = 0; j < m_resolution; j++)
-	//	{
-	//		float theta = (2.f * PI * (float)j) / ((float)m_resolution - 1.f);
-	//		Vertex v{ 0,0,0 };
-	//		v.x = (majorRadius + minorRadius * cos(theta)) * cos(phi);
-	//		v.y = minorRadius * sin(phi);
-	//		v.z = -(majorRadius + minorRadius * cos(theta)) * sin(phi);
+	m_resolution = 128 * 2;
 
-	//		m_vertices.push_back(v);
-	//	}
-	//}
 	for (int i = 0; i < m_resolution; i++)
 	{
 		float majorR = (2.f * PI * i) / (m_resolution - 1);
@@ -130,9 +117,10 @@ void Mesh::CreateTorus(float majorRadius, float minorRadius)
 			float y = minorRadius * sin(minorR);
 			float z = -(majorRadius + minorRadius * cos(minorR)) * sin(majorR);
 
-			m_vertices.emplace_back( x, y, z );
-			
-			//AddVertex(x, y, z);
+			float dist = std::sqrt(x * x + y * y + z * z);
+			Vec3 normal = { x / dist, y / dist, z / dist };
+
+			m_vertices.emplace_back(x, y, z, normal);
 		}
 	}
 
@@ -152,6 +140,7 @@ void Vertex::Rotate(float angle, Axis axis)
 
 	float radAngle = PI * angle / 180.f;
 	float newX = 0, newY = 0, newZ = 0;
+	float newNrmlX = 0, newNrmlY = 0, newNrmlZ = 0;
 	float co = cos(radAngle);
 	float si = sin(radAngle);
 	switch (axis)
@@ -161,18 +150,30 @@ void Vertex::Rotate(float angle, Axis axis)
 		newZ = y * si + z * co;
 		y = newY;
 		z = newZ;
+		newNrmlY = normal.y * co - normal.z * si;
+		newNrmlZ = normal.y * si + normal.z * co;
+		normal.y = newNrmlY;
+		normal.z = newNrmlZ;
 		break;
 	case AXIS_Y:
 		newX = z * si + x * co;
 		newZ = z * co - x * si;
 		x = newX;
 		z = newZ;
+		newNrmlX = normal.z * si + normal.x * co;
+		newNrmlZ = normal.z * co - normal.x * si;
+		normal.x = newNrmlX;
+		normal.z = newNrmlZ;
 		break;
 	case AXIS_Z:
 		newX = x * co - y * si;
 		newY = x * si + y * co;
 		x = newX;
 		y = newY;
+		newNrmlX = normal.x * co - normal.y * si;
+		newNrmlY = normal.x * si + normal.y * co;
+		normal.x = newNrmlX;
+		normal.y = newNrmlY;
 		break;
 	default:
 		break;

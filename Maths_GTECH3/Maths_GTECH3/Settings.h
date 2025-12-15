@@ -25,7 +25,7 @@ private:
 
 
 public:
-	Settings() : m_height(40), m_width(150), m_resolution(32), m_meshProjChar('X'), m_backGroundChar('.'), m_screenPosition(9), m_viewerPosition(10){}
+	Settings() : m_height(40), m_width(150), m_resolution(32), m_meshProjChar('X'), m_backGroundChar(' '), m_screenPosition(9), m_viewerPosition(10){}
 
 	Params ParseArguments(int argc, char** argv);
 

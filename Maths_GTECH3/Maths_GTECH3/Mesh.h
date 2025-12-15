@@ -8,15 +8,24 @@ enum Axis
 	AXIS_Z
 };
 
+struct Vec3
+{
+	float x, y, z;
+};
+
 struct Vertex
 {
 	float x, y, z;
+
+	Vec3 normal;
+
 	Vertex() = default;
-	Vertex(float _x, float _y, float _z)
+	Vertex(float _x, float _y, float _z, Vec3 n = { 0,0,0 })
 	{
 		x = _x;
 		y = _y;
 		z = _z;
+		normal = n;
 	}
 
 	void debug();
@@ -26,6 +35,14 @@ struct Vertex
 class Mesh
 {
 private:
+
+	union
+	{
+		float m_width, m_height;
+		float m_r, m_radius;
+		float m_majorR, m_minorR;
+	};
+
 	std::vector<Vertex> m_vertices;
 	float m_resolution;
 public:

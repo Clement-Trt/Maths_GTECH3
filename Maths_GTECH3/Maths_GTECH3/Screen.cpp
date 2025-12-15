@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Mesh.h"
 
+constexpr float PI = 3.14159265f;
 
 
 void Screen::Initialize(int argc, char** argv)
@@ -39,7 +40,6 @@ void Screen::Display()
 	//}
 }
 
-// QUESTIONS : pourquoi z += m_meshPosition; pareil que z -= m_meshPosition; et surtout pourquoi le centre de roation semble avoir bougé en utilisant la perspective ??
 void Screen::DisplayMesh(Mesh& mesh)
 {
 	int height = m_settings.getHeight();
@@ -47,25 +47,25 @@ void Screen::DisplayMesh(Mesh& mesh)
 	m_display.assign(height * width, m_settings.getBackgroundChar());
 	m_oozBuffer.assign(height * width, -1);
 
-	//float m_screenPosition(3.33f);
-	float m_screenPosition(100.f);
-	//float m_screenPosition(30.f);
-	float m_meshPosition(40.f);
-	float m_meshPositionY(5.f);
-	float m_meshPositionX(25.f);
-	//float m_meshPosition(35.f);
+	float m_screenPosition(0.f);
+	float m_meshPosition(20.f);
 
 	int centreX = width / 2;
 	int centreY = height / 2;
 
-	m_screenPosition = 100 * m_meshPosition * 2 / (8 * (4 + 0.9));
+	float moy = (width + height) / 2;
+
+	m_screenPosition = moy * m_meshPosition * 3 / (8 * (4 + 0.9));
+
+	// TEMPORAIRE
+	Vec3 light = { 1,1,1 };
 
 	for (Vertex v : mesh.GetVertices())
 	{
 		if (v.z == 0) continue;
 		v.z += m_meshPosition;
-		v.x = m_screenPosition * v.x / v.z /*+ m_meshPositionX*/;
-		v.y = m_screenPosition * v.y / v.z /*+ m_meshPositionY*/;
+		v.x = m_screenPosition * v.x / v.z;
+		v.y = m_screenPosition * v.y / v.z;
 
 		int col = centreX + std::round(v.x);
 		int row = centreY - std::round(v.y) / 2; // -v.y car ligne 0 = haut, /2 car affichage déformé en Y par la console	
@@ -76,7 +76,32 @@ void Screen::DisplayMesh(Mesh& mesh)
 			int index = row * width + col;
 			if (ooz < m_oozBuffer[index]) continue;
 			m_oozBuffer[index] = ooz;
-			m_display[index] = 'X';
+
+
+			float dist = std::sqrt(light.x * light.x + light.y * light.y + light.z * light.z);
+			Vec3 normalLight = { light.x / dist, light.y / dist, light.z / dist };
+
+			float prodScal = normalLight.x * v.normal.x + normalLight.y * v.normal.y + normalLight.z * v.normal.z;
+
+
+			//., -~:; = !*#$@
+			
+			if (prodScal > 0.8)
+				m_display[index] = '@';
+			else if (prodScal > 0.5)
+				m_display[index] = '#';
+			else if (prodScal > 0.2)
+				m_display[index] = '$';
+			else if (prodScal > 0.0)
+				m_display[index] = '§';
+			else if (prodScal > -0.2)
+				m_display[index] = '%';
+			else if (prodScal > -0.5)
+				m_display[index] = '/';
+			else if (prodScal > -0.8)
+				m_display[index] = ':';
+			else
+				m_display[index] = '.';
 		}
 	}
 
