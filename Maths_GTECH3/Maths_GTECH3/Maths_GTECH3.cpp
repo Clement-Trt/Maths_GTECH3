@@ -103,7 +103,7 @@ int main(int argc, char** argv)
     Space();
     ClearConsole();
     Mesh torus(256);
-    torus.CreateTorus(4.f,2.f);
+    torus.CreateTorus(4.f,1.5f);
     //torus.CreateTorus(8.f,2.f);
     screen.DisplayMesh(torus);
 

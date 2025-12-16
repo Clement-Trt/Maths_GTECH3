@@ -93,7 +93,7 @@ void Screen::DisplayMesh(Mesh& mesh)
 			else if (prodScal > 0.2)
 				m_display[index] = '$';
 			else if (prodScal > 0.0)
-				m_display[index] = '§';
+				m_display[index] = '£';
 			else if (prodScal > -0.2)
 				m_display[index] = '%';
 			else if (prodScal > -0.5)
