@@ -8,6 +8,7 @@ constexpr float PI = 3.14159265f;
 void Screen::Initialize(int argc, char** argv)
 {
 	Params p = m_settings.ParseArguments(argc, argv);
+	m_light.SetLightDir(p.lightDir);
 	ComputeScreen();
 	//m_mesh.setResolution(p.resolution);
 }
@@ -26,18 +27,6 @@ void Screen::ComputeScreen()
 
 void Screen::Display()
 {
-	//if(m_mesh.GetVertices().empty())
-	//{
-	//	for (int i = 0; i < m_display.size(); i++)
-	//	{
-	//		std::cout << m_display[i];
-	//	}
-	//}
-	//else
-	//{
-
-
-	//}
 }
 
 void Screen::DisplayMesh(Mesh& mesh)
@@ -58,7 +47,7 @@ void Screen::DisplayMesh(Mesh& mesh)
 	m_screenPosition = moy * m_meshPosition * 3 / (8 * (4 + 0.9));
 
 	// TEMPORAIRE
-	Vec3 light = { 1,1,1 };
+	//Vec3 light = { 1,1,1 };
 
 	for (Vertex v : mesh.GetVertices())
 	{
@@ -77,15 +66,8 @@ void Screen::DisplayMesh(Mesh& mesh)
 			if (ooz < m_oozBuffer[index]) continue;
 			m_oozBuffer[index] = ooz;
 
-
-			float dist = std::sqrt(light.x * light.x + light.y * light.y + light.z * light.z);
-			Vec3 normalLight = { light.x / dist, light.y / dist, light.z / dist };
-
-			float prodScal = normalLight.x * v.normal.x + normalLight.y * v.normal.y + normalLight.z * v.normal.z;
-
-
-			//., -~:; = !*#$@
-			
+			float prodScal = v.ComputeIllumination(m_light);
+						
 			if (prodScal > 0.8)
 				m_display[index] = '@';
 			else if (prodScal > 0.5)
@@ -98,7 +80,7 @@ void Screen::DisplayMesh(Mesh& mesh)
 				m_display[index] = '%';
 			else if (prodScal > -0.5)
 				m_display[index] = '/';
-			else if (prodScal > -0.8)
+			else if (prodScal > -0.9)
 				m_display[index] = ':';
 			else
 				m_display[index] = '.';

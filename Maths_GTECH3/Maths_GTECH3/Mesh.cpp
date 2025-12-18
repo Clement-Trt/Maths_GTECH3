@@ -188,3 +188,12 @@ void Vertex::Rotate(float angle, Axis axis)
 	}
 
 }
+
+float Vertex::ComputeIllumination(Light& light)
+{	
+	float dist = std::sqrt(light.GetLightDir().x * light.GetLightDir().x + light.GetLightDir().y * light.GetLightDir().y + light.GetLightDir().z * light.GetLightDir().z);
+	Vec3 normalLight = { light.GetLightDir().x / dist, light.GetLightDir().y / dist, light.GetLightDir().z / dist };
+
+	float prodScal = normalLight.x * normal.x + normalLight.y * normal.y + normalLight.z * normal.z;
+	return prodScal;
+}

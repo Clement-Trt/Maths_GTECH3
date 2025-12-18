@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "Light.h"
 
 enum Axis
 {
@@ -8,10 +9,10 @@ enum Axis
 	AXIS_Z
 };
 
-struct Vec3
-{
-	float x, y, z;
-};
+//struct Vec3
+//{
+//	float x, y, z;
+//};
 
 struct Vertex
 {
@@ -30,6 +31,7 @@ struct Vertex
 
 	void debug();
 	void Rotate(float angle, Axis axis);
+	float ComputeIllumination(Light& light);
 };
 
 class Mesh

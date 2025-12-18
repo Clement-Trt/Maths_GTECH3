@@ -1,5 +1,6 @@
 #pragma once
 #include "Settings.h"
+#include "Light.h"
 //#include "Mesh.h"
 #include <vector>
 
@@ -10,6 +11,7 @@ class Screen
 private:
 
 	Settings m_settings;
+	Light m_light;
 	std::vector<char> m_display;
 	std::vector<float> m_oozBuffer;
 

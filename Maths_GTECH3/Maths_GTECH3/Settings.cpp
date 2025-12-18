@@ -35,10 +35,20 @@ Params Settings::ParseArguments(int argc, char** argv)
             {
                 m_meshProjChar = argv[i + 1][0];
             }
-
-
+            if (std::string(argv[i]) == "-lx")
+            {
+                m_lightDir.x = argv[i + 1][0];
+            }
+            if (std::string(argv[i]) == "-ly")
+            {
+                m_lightDir.y = argv[i + 1][0];
+            }
+            if (std::string(argv[i]) == "-lz")
+            {
+                m_lightDir.z = argv[i + 1][0];
+            }
         }
     }
-    Params p{ m_width, m_height,m_resolution };
+    Params p{ m_width, m_height, m_resolution, m_screenPosition, m_viewerPosition, m_backGroundChar, m_meshProjChar, m_lightDir };
     return p;
 }
