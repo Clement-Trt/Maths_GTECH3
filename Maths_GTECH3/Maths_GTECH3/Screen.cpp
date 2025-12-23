@@ -35,16 +35,12 @@ void Screen::DisplayMesh(Mesh& mesh)
 	int width = m_settings.getWidth();
 	m_display.assign(height * width, m_settings.getBackgroundChar());
 	m_oozBuffer.assign(height * width, -1);
-
-	float m_screenPosition(0.f);
-	float m_meshPosition(20.f);
-
+	float screenPosition(m_settings.getScreenPosition());
+	float meshPosition(m_settings.getViewerPosition());
 	int centreX = width / 2;
 	int centreY = height / 2;
-
 	float moy = (width + height) / 2;
-
-	m_screenPosition = moy * m_meshPosition * 3 / (8 * (4 + 0.9));
+	screenPosition = moy * meshPosition * 2 / (8 * (4 + 0.9));
 
 	// TEMPORAIRE
 	//Vec3 light = { 1,1,1 };
@@ -52,9 +48,9 @@ void Screen::DisplayMesh(Mesh& mesh)
 	for (Vertex v : mesh.GetVertices())
 	{
 		if (v.z == 0) continue;
-		v.z += m_meshPosition;
-		v.x = m_screenPosition * v.x / v.z;
-		v.y = m_screenPosition * v.y / v.z;
+		v.z += meshPosition + mesh.GetPosition().z;
+		v.x = screenPosition * v.x / v.z + mesh.GetPosition().x;
+		v.y = screenPosition * v.y / v.z + mesh.GetPosition().y;
 
 		int col = centreX + std::round(v.x);
 		int row = centreY - std::round(v.y) / 2; // -v.y car ligne 0 = haut, /2 car affichage déformé en Y par la console	
@@ -67,17 +63,17 @@ void Screen::DisplayMesh(Mesh& mesh)
 			m_oozBuffer[index] = ooz;
 
 			float prodScal = v.ComputeIllumination(m_light);
-						
+
 			if (prodScal > 0.8)
 				m_display[index] = '@';
 			else if (prodScal > 0.5)
 				m_display[index] = '#';
 			else if (prodScal > 0.2)
-				m_display[index] = '$';
-			else if (prodScal > 0.0)
-				m_display[index] = '£';
-			else if (prodScal > -0.2)
 				m_display[index] = '%';
+			else if (prodScal > 0.0)
+				m_display[index] = '$';
+			else if (prodScal > -0.2)
+				m_display[index] = '£';
 			else if (prodScal > -0.5)
 				m_display[index] = '/';
 			else if (prodScal > -0.9)

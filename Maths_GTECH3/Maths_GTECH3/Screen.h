@@ -1,10 +1,10 @@
 #pragma once
 #include "Settings.h"
 #include "Light.h"
-//#include "Mesh.h"
+#include "Mesh.h"
 #include <vector>
 
-class Mesh;
+//class Mesh;
 
 class Screen
 {
@@ -27,7 +27,8 @@ public:
 
 	void DisplayMesh(Mesh& mesh);
 
-
+	void SetLight(float x, float y, float z) { m_light.SetLightDir(x, y, z); }
+	void SetLight(Vertex v) { m_light.SetLightDir(v.x, v.y, v.z); }
 
 };
 

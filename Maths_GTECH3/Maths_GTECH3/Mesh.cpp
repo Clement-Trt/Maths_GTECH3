@@ -133,7 +133,47 @@ void Mesh::CreateTorus(float majorRadius, float minorRadius)
 	}
 
 }
+void Mesh::CreateEmptySphere(float radius)
+{
+	//m_resolution = 128 * 2;
+	m_r = m_radius = radius;
+	m_position.z = radius;
+	for (int i = 0; i < m_resolution; i++)
+	{
+		float angle = 2 * PI * i / m_resolution;
 
+		float x = radius * cos(angle);
+		float y = radius * sin(angle);
+		float z = 0;
+
+		float cx = radius * cos(angle);
+		float cy = 0.0f;
+		float cz = -radius * sin(angle);
+
+		float nx = x ;
+		float ny = y ;
+		float nz = z ;
+
+		float len = std::sqrt(nx * nx + ny * ny + nz * nz);
+		Vec3 normal = { nx / len, ny / len, nz / len };
+
+		m_vertices.emplace_back(x, y, z, normal);
+	}
+
+	std::vector<Vertex> circle = m_vertices;
+
+	for (int i = 0; i < m_resolution; i++)
+	{
+		float angle = 2 * PI * i / m_resolution;
+
+		for (Vertex v : circle)
+		{
+			v.RotateRad(angle, AXIS_Y);
+			m_vertices.push_back(v);
+		}
+	}
+
+}
 
 void Mesh::Rotate(float angle, Axis axis)
 {
@@ -189,8 +229,52 @@ void Vertex::Rotate(float angle, Axis axis)
 
 }
 
+void Vertex::RotateRad(float radAngle, Axis axis)
+{
+	float newX = 0, newY = 0, newZ = 0;
+	float newNrmlX = 0, newNrmlY = 0, newNrmlZ = 0;
+	float co = cos(radAngle);
+	float si = sin(radAngle);
+	switch (axis)
+	{
+	case AXIS_X:
+		newY = y * co - z * si;
+		newZ = y * si + z * co;
+		y = newY;
+		z = newZ;
+		newNrmlY = normal.y * co - normal.z * si;
+		newNrmlZ = normal.y * si + normal.z * co;
+		normal.y = newNrmlY;
+		normal.z = newNrmlZ;
+		break;
+	case AXIS_Y:
+		newX = z * si + x * co;
+		newZ = z * co - x * si;
+		x = newX;
+		z = newZ;
+		newNrmlX = normal.z * si + normal.x * co;
+		newNrmlZ = normal.z * co - normal.x * si;
+		normal.x = newNrmlX;
+		normal.z = newNrmlZ;
+		break;
+	case AXIS_Z:
+		newX = x * co - y * si;
+		newY = x * si + y * co;
+		x = newX;
+		y = newY;
+		newNrmlX = normal.x * co - normal.y * si;
+		newNrmlY = normal.x * si + normal.y * co;
+		normal.x = newNrmlX;
+		normal.y = newNrmlY;
+		break;
+	default:
+		break;
+	}
+
+}
+
 float Vertex::ComputeIllumination(Light& light)
-{	
+{
 	float dist = std::sqrt(light.GetLightDir().x * light.GetLightDir().x + light.GetLightDir().y * light.GetLightDir().y + light.GetLightDir().z * light.GetLightDir().z);
 	Vec3 normalLight = { light.GetLightDir().x / dist, light.GetLightDir().y / dist, light.GetLightDir().z / dist };
 
