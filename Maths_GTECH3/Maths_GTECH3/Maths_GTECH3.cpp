@@ -132,19 +132,21 @@ int main(int argc, char** argv)
 
 	while (true)
 	{
+		Space();
+		Space();
 		SetHomePosition();
 
 		// Dynamic Light
 		screen.SetLight(dynamicLight);
-		dynamicLight.Rotate(5, AXIS_Y);
+		dynamicLight.Rotate(15, AXIS_Y);
 
 		// Movement Sphere
 		if (sphere.GetPosition().x > 20 || sphere.GetPosition().x < -20)
 			up = !up;
 		if (up)
-			sphere.SetPosition(sphere.GetPosition().x + 1, sphere.GetPosition().y + 1, sphere.GetPosition().z + 0.2);
+			sphere.SetPosition(sphere.GetPosition().x + 2, sphere.GetPosition().y + 2, sphere.GetPosition().z + 0.2);
 		else
-			sphere.SetPosition(sphere.GetPosition().x - 1, sphere.GetPosition().y - 1, sphere.GetPosition().z - 0.2);
+			sphere.SetPosition(sphere.GetPosition().x - 2, sphere.GetPosition().y - 2, sphere.GetPosition().z - 0.2);
 
 		//torus.Rotate(5, AXIS_X);
 		//sphere.Rotate(20, AXIS_Y);
