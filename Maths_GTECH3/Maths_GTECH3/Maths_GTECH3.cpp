@@ -144,9 +144,9 @@ int main(int argc, char** argv)
 		if (sphere.GetPosition().x > 20 || sphere.GetPosition().x < -20)
 			up = !up;
 		if (up)
-			sphere.SetPosition(sphere.GetPosition().x + 2, sphere.GetPosition().y + 2, sphere.GetPosition().z + 0.2);
+			sphere.SetPosition(sphere.GetPosition().x + 2, sphere.GetPosition().y + 2, sphere.GetPosition().z + 1);
 		else
-			sphere.SetPosition(sphere.GetPosition().x - 2, sphere.GetPosition().y - 2, sphere.GetPosition().z - 0.2);
+			sphere.SetPosition(sphere.GetPosition().x - 2, sphere.GetPosition().y - 2, sphere.GetPosition().z - 1);
 
 		//torus.Rotate(5, AXIS_X);
 		//sphere.Rotate(20, AXIS_Y);
